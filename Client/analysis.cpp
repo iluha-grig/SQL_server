@@ -2158,8 +2158,10 @@ namespace parser
 	void WE23()
 	{
 		bool local_flag = false;
+		bool local_flag2 = true;
 		if (not_flag)
 		{
+			local_flag2 = false;
 			not_flag = false;
 			if (lexer::cur_lex_type != lex_type_t::OPEN)
 			{
@@ -2193,7 +2195,7 @@ namespace parser
 					W10();
 					W11();
 					wh3.logic_expr.push_back(str_tmp);
-					if (!local_flag)
+					if (!local_flag && local_flag2)
 					{
 						if (par_counter == 0 || lexer::cur_lex_type != lex_type_t::CLOSE)
 						{
@@ -2210,7 +2212,7 @@ namespace parser
 				W10();
 				W11();
 				wh3.logic_expr.push_back(str_tmp);
-				if (!local_flag)
+				if (!local_flag && local_flag2)
 				{
 					if (par_counter == 0 || lexer::cur_lex_type != lex_type_t::CLOSE)
 					{
@@ -2857,10 +2859,6 @@ namespace parser
 
 	void WE22()
 	{
-		if (lexer::cur_lex_type != lex_type_t::STR)
-		{
-			throw std::logic_error("Incorrect syntax");
-		}
 		wh2.list_str.push_back(lexer::cur_lex_text);
 		lexer::next();
 		while (lexer::cur_lex_type == lex_type_t::COMMA)
